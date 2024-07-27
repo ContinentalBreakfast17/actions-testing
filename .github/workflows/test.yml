@@ -15,5 +15,7 @@ jobs:
           version: '>= 363.0.0'
 
       - run: |
-          find /opt/hostedtoolcache/gcloud
-          which gcloud
+          echo $GITHUB_PATH
+          du -sh /opt/hostedtoolcache/gcloud
+          # find /opt/hostedtoolcache/gcloud
+          # which gcloud
