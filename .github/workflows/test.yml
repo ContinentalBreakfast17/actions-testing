@@ -10,12 +10,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: google-github-actions/setup-gcloud@v2
+      - id: cache
+        uses: actions/cache@v4
+        with:
+          path: /opt/hostedtoolcache/gcloud
+          restore-keys: gcloud
+          save-always: true
+
+      - if: ${{ !steps.cache.outputs.cache-hit }}
+        uses: google-github-actions/setup-gcloud@v2
         with:
           version: '>= 363.0.0'
 
-      - run: |
-          echo $GITHUB_PATH
-          du -sh /opt/hostedtoolcache/gcloud
-          # find /opt/hostedtoolcache/gcloud
-          # which gcloud
+      - if: ${{ steps.cache.outputs.cache-hit }}
+        name: gcloud from cache
+        run: |
+          echo "$(dirname $(which gcloud ))" >> $GITHUB_PATH
+
+      - name: debug
+        run: |
+          gcloud --version
