@@ -1,0 +1,19 @@
+name: test
+
+on:
+  push: {}
+  workflow_dispatch: {}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: google-github-actions/setup-gcloud@v2
+        with:
+          version: '>= 363.0.0'
+
+      - run: |
+          gcloud --version
+          which gcloud
