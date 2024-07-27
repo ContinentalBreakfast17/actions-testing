@@ -15,5 +15,5 @@ jobs:
           version: '>= 363.0.0'
 
       - run: |
-          gcloud --version
+          find /opt/hostedtoolcache/gcloud
           which gcloud
